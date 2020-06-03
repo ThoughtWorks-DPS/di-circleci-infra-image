@@ -54,8 +54,8 @@ RUN sudo apk add --no-cache \
     curl -SLO "https://github.com/wata727/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
     sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
     sudo rm tflint_linux_amd64.zip && \
-    curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
-    curl -o aws-iam-authenticator.sha256 https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator.sha256 && \
+    sudo curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
+    sudo curl -o aws-iam-authenticator.sha256 https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator.sha256 && \
     sudo openssl sha1 -sha256 aws-iam-authenticator && sudo rm aws-iam-authenticator.sha256 && \
     sudo chmod +x ./aws-iam-authenticator && \
     sudo mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator && \
