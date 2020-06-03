@@ -106,6 +106,9 @@ To build and test the Docker image locally, run the `testlocal.sh` script:
 ```bash
 ./testlocal.sh
 ```
+*requirements for testing*  
+conftest  
+bats  
 
 ### Publishing Official Images (for Maintainers only)
 
@@ -118,8 +121,5 @@ To create a release version, simply tag HEAD with the semnatic release version.
 
 We accept [issues](https://github.com/twdps/di-circleci-remote-docker/issues) and [pull requests](https://github.com/twdps/di-circleci-remote-docker/pulls) against this repository. In order to value your time, here are some things to consider:
 
-1. We won't include just anything in this image. While many of the packges in this base are commonly used by teams using CircleCI, the image is part of a larger delivery platform architecture model designed to exemplify modern cloud native  
-practices and software defined infrastructure. In order for us to add a tool within the base image, it has to be part of  
-the overall TW DPS reference architecture. Suggest packages based on proposed changes to existing tools or services and include a defense for why an alternative approach is superior.  
-1. Issues are generally the best option to report bugs or request additional/removal of tools in this image. PRs for bug  
-fixes are always welcome.  
+1. We won't include just anything in this image. While many of the packges in this base are commonly used by teams using CircleCI, the image is part of a larger delivery platform architecture model designed to exemplify modern cloud native practices and software defined infrastructure. In order for us to add a tool within the base image, it has to be part of the overall TW DPS reference architecture. Suggest packages based on proposed changes to existing tools or services and include a defense for why an alternative approach is superior.  
+1. Issues are generally the best option to report bugs or request additional/removal of tools in this image. PRs for bug fixes are always welcome.  
