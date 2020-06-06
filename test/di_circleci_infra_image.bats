@@ -2,7 +2,7 @@
 
 @test "evaluate installed package versions" {
   run bash -c "docker exec di-circleci-infra-image-edge apk -v info"
-  [[ "${output}" =~ "go-1.13.10-r0" ]]
+  [[ "${output}" =~ "go-1.13.11-r0" ]]
   [[ "${output}" =~ "python3-3.8.3-r0" ]]
 }
 
