@@ -50,7 +50,7 @@ RUN sudo apk add --no-cache \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/bin && \
-    sudo rm -f "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    sudo rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://github.com/wata727/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
     sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
     sudo rm tflint_linux_amd64.zip && \
@@ -70,7 +70,7 @@ RUN sudo apk add --no-cache \
     sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo mv linux-amd64/helm /usr/bin && \
     sudo rm -rf linux-amd64/ && \
-    sudo rm -rf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     curl -L https://git.io/getLatestIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
@@ -78,7 +78,7 @@ RUN sudo apk add --no-cache \
     echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_SHA256SUMS" && \
     sudo sha256sum -cs "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
     sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
-    sudo rm -f "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
     sudo apk del build-dependencies
 
 USER circleci
