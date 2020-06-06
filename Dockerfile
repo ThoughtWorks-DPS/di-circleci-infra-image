@@ -65,7 +65,7 @@ RUN sudo apk add --no-cache \
     curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
     sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
     sudo mv sonobuoy /usr/local/bin/sonobuoy && \
-    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE \
+    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo mv linux-amd64/helm /usr/bin && \
