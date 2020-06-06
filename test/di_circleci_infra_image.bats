@@ -15,7 +15,7 @@
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.3\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.23.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.2\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.25.5\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.26.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.5.2\"}" ]]
   [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.23.0\"}" ]]
 }
@@ -27,7 +27,7 @@
 
 @test "tflint version" {
   run bash -c "docker exec di-circleci-infra-image-edge tflint --version"
-  [[ "${output}" =~ "0.16.1" ]]
+  [[ "${output}" =~ "0.16.2" ]]
 }
 
 @test "aws-iam-authenticator version" {
@@ -42,7 +42,7 @@
 
 @test "helm version" {
   run bash -c "docker exec di-circleci-infra-image-edge helm version"
-  [[ "${output}" =~ "3.2.1" ]]
+  [[ "${output}" =~ "3.2.2" ]]
 }
 
 @test "sonobuoy version" {
@@ -52,7 +52,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.5.4" ]]
+  [[ "${output}" =~ "1.6.1" ]]
 }
 
 @test "vault version" {
