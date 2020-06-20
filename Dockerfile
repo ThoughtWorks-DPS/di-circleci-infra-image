@@ -35,17 +35,17 @@ RUN sudo apk add --no-cache \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
-    sudo ln -s /usr/bin/python3-config /usr/bin/python-config
-    # sudo pip install \
-    #          setuptools==41.2.0
-            #  awscli==1.18.84 \
-            #  invoke==1.4.1 \
-            #  hvac==0.10.4 \
-            #  requests==2.24.0 \
-            #  jinja2==2.11.2 \
-            #  docker-compose==1.26.0 \
-            #  pylint==2.5.3 \
-            #  yamllint==1.23.0
+    sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
+    sudo pip install \
+             setuptools==47.3.1 \
+             awscli==1.18.84 \
+             invoke==1.4.1 \
+             hvac==0.10.4 \
+             requests==2.24.0 \
+             jinja2==2.11.2 \
+             docker-compose==1.26.0 \
+             pylint==2.5.3 \
+             yamllint==1.23.0
 
 # hadolint ignore=DL3004
 RUN curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
