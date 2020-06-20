@@ -18,17 +18,17 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
-# RUN sudo apk add --no-cache \
-#              go==1.13.11-r0 \
-#              python3==3.8.3-r0 && \
-#     sudo apk add --no-cache --virtual build-dependencies \
-#              build-base==0.5-r2 \
-#              openssl-dev==1.1.1g-r0 \
-#              python3-dev==3.8.3-r0 \
-#              libffi-dev==3.3-r2 \
-#              g++==9.3.0-r3 \
-#              gcc==9.3.0-r3 \
-#              make==4.3-r0 && \
+RUN sudo apk add --no-cache \
+             go==1.13.11-r0 \
+             python3==3.8.3-r0 && \
+    sudo apk add --no-cache --virtual build-dependencies \
+             build-base==0.5-r2 \
+             openssl-dev==1.1.1g-r0 \
+             python3-dev==3.8.3-r0 \
+             libffi-dev==3.3-r2 \
+             g++==9.3.0-r3 \
+             gcc==9.3.0-r3 \
+             make==4.3-r0
 #     sudo python3 -m ensurepip && \
 #     sudo rm -r /usr/lib/python*/ensurepip && \
 #     sudo pip3 install --upgrade pip==20.1.1 && \
@@ -46,6 +46,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 #              docker-compose==1.26.0 \
 #              pylint==2.5.3 \
 #              yamllint==1.23.0 && \
+
 # hadolint ignore=DL3004
 RUN curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
