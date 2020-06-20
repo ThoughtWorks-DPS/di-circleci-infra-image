@@ -10,13 +10,13 @@
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
   [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.1.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"41.2.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.74\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.84\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.3\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.23.0\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.4\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.24.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.2\"}" ]]
   [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.26.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.5.2\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.5.3\"}" ]]
   [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.23.0\"}" ]]
 }
 
@@ -42,17 +42,17 @@
 
 @test "helm version" {
   run bash -c "docker exec di-circleci-infra-image-edge helm version"
-  [[ "${output}" =~ "3.2.2" ]]
+  [[ "${output}" =~ "3.2.4" ]]
 }
 
 @test "sonobuoy version" {
   run bash -c "docker exec di-circleci-infra-image-edge sonobuoy version"
-  [[ "${output}" =~ "0.18.2" ]]
+  [[ "${output}" =~ "0.18.3" ]]
 }
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.6.1" ]]
+  [[ "${output}" =~ "1.6.3" ]]
 }
 
 @test "vault version" {

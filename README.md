@@ -56,16 +56,16 @@ twdps infra image includes (with dependencies):
 
 - terraform  
 - tflint  
-- aws-iam-authenticator  
 - kubectl  
 - istio  
 - vault (Hashicorp)  
+- consul (Hashicorp)
 - sonobuoy  
 - go  
 - python3  
   
 python packages includes  
-- awscli  
+- awscli v1  
 - invoke  
 - hvac  
 - requests  
