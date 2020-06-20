@@ -14,7 +14,7 @@ ENV CONSUL_SHA256SUM=98df3e0a8ede84794fa4d20b1b6b5d52ad3b983dec916c4d612cecba7c4
 ENV VAULT_VERSION=1.4.2
 ENV VAULT_SHA256SUM=f2bca89cbffb8710265eb03bc9452cc316b03338c411ba8453ffe7419390b8f1
 
-#SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
@@ -46,6 +46,7 @@ ENV VAULT_SHA256SUM=f2bca89cbffb8710265eb03bc9452cc316b03338c411ba8453ffe7419390
 #              docker-compose==1.26.0 \
 #              pylint==2.5.3 \
 #              yamllint==1.23.0 && \
+# hadolint ignore=DL3004
 RUN curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
