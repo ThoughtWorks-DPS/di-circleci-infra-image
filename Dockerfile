@@ -28,14 +28,14 @@ RUN sudo apk add --no-cache \
              libffi-dev==3.3-r2 \
              g++==9.3.0-r3 \
              gcc==9.3.0-r3 \
-             make==4.3-r0
-#     sudo python3 -m ensurepip && \
-#     sudo rm -r /usr/lib/python*/ensurepip && \
-#     sudo pip3 install --upgrade pip==20.1.1 && \
-#     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
-#     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
-#     sudo ln -s /usr/bin/python3 /usr/bin/python && \
-#     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
+             make==4.3-r0 && \
+    sudo python3 -m ensurepip && \
+    sudo rm -r /usr/lib/python*/ensurepip && \
+    sudo pip3 install --upgrade pip==20.1.1 && \
+    if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
+    sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
+    sudo ln -s /usr/bin/python3 /usr/bin/python && \
+    sudo ln -s /usr/bin/python3-config /usr/bin/python-config
 #     sudo pip install \
 #              setuptools==41.2.0 \
 #              awscli==1.18.84 \
