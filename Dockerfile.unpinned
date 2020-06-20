@@ -57,7 +57,7 @@ RUN sudo apk add --no-cache \
     sha256sum -cs "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
     sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/bin && \
     sudo rm -f "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
-    curl -SLO "https://github.com/wata727/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
+    curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
     sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
     sudo rm tflint_linux_amd64.zip && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
