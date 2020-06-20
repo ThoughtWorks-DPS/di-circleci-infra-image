@@ -35,9 +35,9 @@ RUN sudo apk add --no-cache \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
-    sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
-    sudo pip install \
-             setuptools==41.2.0
+    sudo ln -s /usr/bin/python3-config /usr/bin/python-config
+    # sudo pip install \
+    #          setuptools==41.2.0
             #  awscli==1.18.84 \
             #  invoke==1.4.1 \
             #  hvac==0.10.4 \
