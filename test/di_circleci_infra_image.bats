@@ -30,11 +30,6 @@
   [[ "${output}" =~ "0.16.2" ]]
 }
 
-@test "aws-iam-authenticator version" {
-  run bash -c "docker exec di-circleci-infra-image-edge aws-iam-authenticator version"
-  [[ "${output}" =~ "0.5.0" ]]
-}
-
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
   [[ "${output}" =~ "1.18.3" ]]
