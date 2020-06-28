@@ -22,7 +22,7 @@
 
 @test "terraform version" {
   run bash -c "docker exec di-circleci-infra-image-edge terraform version"
-  [[ "${output}" =~ "0.12.26" ]]
+  [[ "${output}" =~ "0.12.28" ]]
 }
 
 @test "tflint version" {
@@ -32,7 +32,7 @@
 
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.18.3" ]]
+  [[ "${output}" =~ "1.18.5" ]]
 }
 
 @test "helm version" {
