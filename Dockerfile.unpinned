@@ -1,12 +1,11 @@
-
 FROM twdps/di-circleci-base-image:stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.12.26
-ENV TERRAFORM_SHA256SUM=607bc802b1c6c2a5e62cc48640f38aaa64bef1501b46f0ae4829feb51594b257
+ENV TERRAFORM_VERSION=0.12.28
+ENV TERRAFORM_SHA256SUM=be99da1439a60942b8d23f63eba1ea05ff42160744116e84f46fc24f1a8011b6
 ENV TFLINT_VERSION=0.16.2
-ENV KUBECTL_VERSION=1.18.3
+ENV KUBECTL_VERSION=1.18.5
 ENV HELM_VERSION=3.2.4
 ENV SONOBUOY_VERSION=0.18.3
 ENV ISTIO_VERSION=1.6.3
@@ -15,7 +14,7 @@ ENV CONSUL_SHA256SUM=98df3e0a8ede84794fa4d20b1b6b5d52ad3b983dec916c4d612cecba7c4
 ENV VAULT_VERSION=1.4.2
 ENV VAULT_SHA256SUM=f2bca89cbffb8710265eb03bc9452cc316b03338c411ba8453ffe7419390b8f1
 
-SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=
@@ -38,7 +37,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools \
+             setuptools==47.3.1 \
              awscli \
              invoke \
              hvac \
