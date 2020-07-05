@@ -20,11 +20,16 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
              go==1.13.11-r0 \
-             python3==3.8.3-r0 && \
+             python3==3.8.3-r0 \
+             ruby==2.7.1-r3 \
+             ruby-webrick==2.7.1-r3 \
+             ruby-bigdecimal==2.7.1-r3 \
+             ruby-bundler==2.1.4-r1 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
              openssl-dev==1.1.1g-r0 \
              python3-dev==3.8.3-r0 \
+             ruby-dev==2.7.1-r3 \
              libffi-dev==3.3-r2 \
              g++==9.3.0-r3 \
              gcc==9.3.0-r3 \
@@ -46,6 +51,9 @@ RUN sudo apk add --no-cache \
              docker-compose==1.26.0 \
              pylint==2.5.3 \
              yamllint==1.23.0 && \
+    echo "gem: --no-document" > /etc/gemrc && \
+    gem install \
+        awspec: && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
