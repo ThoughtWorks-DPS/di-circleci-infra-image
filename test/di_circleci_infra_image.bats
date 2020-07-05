@@ -4,13 +4,17 @@
   run bash -c "docker exec di-circleci-infra-image-edge apk -v info"
   [[ "${output}" =~ "go-1.13.11-r0" ]]
   [[ "${output}" =~ "python3-3.8.3-r0" ]]
+  [[ "${output}" =~ "ruby-2.7.1-r3" ]]
+  [[ "${output}" =~ "ruby-webrick-2.7.1-r3" ]]
+  [[ "${output}" =~ "ruby-bigdecimal-2.7.1-r3" ]]
+  [[ "${output}" =~ "ruby-bundler-2.1.4-r1" ]]
 }
 
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
   [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.1.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"47.3.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.84\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.93\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.4\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.24.0\"}" ]]
@@ -18,6 +22,11 @@
   [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.26.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.5.3\"}" ]]
   [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.23.0\"}" ]]
+}
+
+@test "evaluate installed gems" {
+  run bash -c "docker exec di-circleci-infra-image-edge gem list"
+  [[ "${output}" =~ "awspec" ]]
 }
 
 @test "terraform version" {
