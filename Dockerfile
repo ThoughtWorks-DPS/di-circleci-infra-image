@@ -51,9 +51,9 @@ RUN sudo apk add --no-cache \
              docker-compose==1.26.0 \
              pylint==2.5.3 \
              yamllint==1.23.0 && \
-    echo "gem: --no-document" > /etc/gemrc && \
-    gem install \
-        awspec: && \
+    sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
+    sudo gem install \
+             awspec: && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
