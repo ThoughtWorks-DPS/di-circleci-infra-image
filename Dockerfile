@@ -53,7 +53,8 @@ RUN sudo apk add --no-cache \
              yamllint==1.23.0 && \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
     sudo gem install \
-             awspec:1.21.0 && \
+             awspec:1.21.0 \
+             json:2.3.1 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \

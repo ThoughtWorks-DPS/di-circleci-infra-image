@@ -27,6 +27,7 @@
 @test "evaluate installed gems" {
   run bash -c "docker exec di-circleci-infra-image-edge gem list"
   [[ "${output}" =~ "awspec" ]]
+  [[ "${output}" =~ "json" ]]
 }
 
 @test "terraform version" {
