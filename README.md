@@ -64,6 +64,7 @@ twdps infra image includes (with dependencies):
 - sonobuoy  
 - go  
 - python3  
+- ruby
   
 python packages includes  
 - awscli v1  
@@ -74,6 +75,10 @@ python packages includes
 - docker-compose  
 - pylint  
 - yamllint  
+
+gems included  
+- awspec  
+- json  
   
 ### Tagging Scheme
 
