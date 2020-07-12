@@ -37,7 +37,7 @@
 
 @test "tflint version" {
   run bash -c "docker exec di-circleci-infra-image-edge tflint --version"
-  [[ "${output}" =~ "0.16.2" ]]
+  [[ "${output}" =~ "0.17.0" ]]
 }
 
 @test "kubectl version" {
@@ -57,7 +57,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.6.3" ]]
+  [[ "${output}" =~ "1.6.5" ]]
 }
 
 @test "vault version" {
