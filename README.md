@@ -95,7 +95,6 @@ adopt new releases as part of your ci process.
 
 `0.0.0` - Semantic release version of the image. This is the recommended version for use in a CircleCI pipeline.  
 
-
 ## Development
 
 Images can be built and run locally with this repository.
