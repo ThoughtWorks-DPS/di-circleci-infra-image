@@ -12,13 +12,9 @@
 </div>
 <br />
 
-With some inspiration from the CircleCI convenience images, `twdps/di-circleci-infra-image` is one of a series of CircleCI  
-remote docker executor images built FROM `twdps/di-circleci-base-image` for continuous delivery within a software  
-defined delivery platform. This image is designed to serve as a infrastructure pipeline image and provides the core packages and configuration  
-needed to provide a self-serve, low friction experience for cross functional, independent development teams with a high  
-governance and security profile (with obvious focus at the moment on AWS).  
+With some inspiration from the CircleCI convenience images, `twdps/di-circleci-infra-image` is on of a series of CircleCI remote docker executor images built FROM `twdps/di-circleci-base-image` for continuous delivery within a software defined delivery platform. This image is designed to serve as a infrastructure pipeline image and provides the core packages and configuration needed to provide a self-serve, low friction experience for cross functional, independent development teams with a high governance and security profile (with obvious focus at the moment on AWS).  
 
-_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images is based on Alpine linux and includes common sdlc practices including benchmark testing.  
+_difference with cimg libraries._ Enterprise settings often require specific security and configuratio testing. The twdps series of convenience images is based on Alpine linux and includes common sdlc practices including benchmark testing.  
 
 **Other images in this series**  
 
@@ -52,8 +48,7 @@ jobs:
 
 ## What is Included in the Image
 
-In addition to the packages and configuration that make up the twdps/di-circleci-base-image, the  
-twdps infra image includes (with dependencies):
+In addition to the packages and configuration that make up the twdps/di-circleci-base-image, the twdps infra image includes (with dependencies):
 
 - terraform  
 - tflint  
@@ -84,14 +79,9 @@ gems included
 
 These CircleCI executor images have the following tagging scheme:
 
-`edge` - the latest version of the image. Built from the `HEAD` of the `master` branch.  
-Intended to be used as a testing version of the image with the most recent changes however not  
-guaranteed to be all that stable and not recommended for production software.  
+`edge` - the latest version of the image. Built from the `HEAD` of the `master` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable and not recommended for production software.  
 
-`stable` - points to the latest, production ready base image. For projects that want a decent level of  
-stability while automatically recieving software updates. This is similar to using the `:latest` tag  
-and is not a generally recommended practice. Pin the `executor` reference to a specific release and  
-adopt new releases as part of your ci process.  
+`stable` - points to the latest, production ready base image. For projects that want a decent level of stability while automatically recieving software updates. This is similar to using the `:latest` tag and is not a generally recommended practice. Pin the `executor` reference to a specific release and adopt new releases as part of your ci process.  
 
 `0.0.0` - Semantic release version of the image. This is the recommended version for use in a CircleCI pipeline.  
 
@@ -117,8 +107,7 @@ bats
 
 ### Publishing Official Images (for Maintainers only)
 
-Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh,  
-a snyk scan is done to expose any known vulnerabilities.  
+Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh, a snyk scan is done to expose any known vulnerabilities.  
 
 To create a release version, simply tag HEAD with the semnatic release version.
 
