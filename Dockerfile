@@ -31,8 +31,8 @@ RUN sudo apk add --no-cache \
              python3-dev==3.8.5-r0 \
              ruby-dev==2.7.1-r3 \
              libffi-dev==3.3-r2 \
-             g++==9.3.0-r3 \
-             gcc==9.3.0-r2 \
+             g++==10.2.0-r2 \
+             gcc==10.2.0-r2 \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
