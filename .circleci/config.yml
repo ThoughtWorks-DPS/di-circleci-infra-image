@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: feedyard/executor-tools@2.1.0
+  executor-tools: feedyard/executor-tools@2.2.0
 
 on-push-master: &on-push-master
   branches:

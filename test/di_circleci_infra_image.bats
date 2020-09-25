@@ -32,35 +32,35 @@
 
 @test "terraform version" {
   run bash -c "docker exec di-circleci-infra-image-edge terraform version"
-  [[ "${output}" =~ "0.13.0" ]]
+  [[ "${output}" =~ "0.13.3" ]]
 }
 
 @test "tflint version" {
   run bash -c "docker exec di-circleci-infra-image-edge tflint --version"
-  [[ "${output}" =~ "0.19.0" ]]
+  [[ "${output}" =~ "0.20.2" ]]
 }
 
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.18.8" ]]
+  [[ "${output}" =~ "1.19.3" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec di-circleci-infra-image-edge helm version"
-  [[ "${output}" =~ "3.3.0" ]]
+  [[ "${output}" =~ "3.3.4" ]]
 }
 
 @test "sonobuoy version" {
   run bash -c "docker exec di-circleci-infra-image-edge sonobuoy version"
-  [[ "${output}" =~ "0.18.4" ]]
+  [[ "${output}" =~ "0.19.0" ]]
 }
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.7.0" ]]
+  [[ "${output}" =~ "1.7.2" ]]
 }
 
 @test "vault version" {
   run bash -c "docker exec di-circleci-infra-image-edge vault version"
-  [[ "${output}" =~ "1.5.2" ]]
+  [[ "${output}" =~ "1.5.4" ]]
 }
