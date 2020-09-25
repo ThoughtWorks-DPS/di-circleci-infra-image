@@ -12,7 +12,7 @@
 
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
-  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.2\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.3\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"49.6.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.124\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
@@ -42,7 +42,7 @@
 
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.19.3" ]]
+  [[ "${output}" =~ "1.19.2" ]]
 }
 
 @test "helm version" {
