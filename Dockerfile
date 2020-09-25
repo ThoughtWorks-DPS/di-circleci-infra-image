@@ -85,7 +85,7 @@ RUN sudo apk add --no-cache \
     sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
     sudo mv sonobuoy /usr/local/bin/sonobuoy && \
     sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
-    curl -L https://istio.io/downloadIstio  | ISTIO_VERSION='${ISTIO_VERSION}' sh - && \
+    curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
     sudo apk del build-dependencies
