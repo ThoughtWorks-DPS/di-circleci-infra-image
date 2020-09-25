@@ -81,19 +81,15 @@ RUN sudo apk add --no-cache \
     curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
     sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
     sudo rm tflint_linux_amd64.zip  && \
+    curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo mv sonobuoy /usr/local/bin/sonobuoy && \
+    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
+    curl -L https://istio.io/downloadIstio  | ISTIO_VERSION='${ISTIO_VERSION}' sh - && \
+    sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
+    sudo rm -rf "istio-${ISTIO_VERSION}" && \
     sudo apk del build-dependencies
 
-# RUN sudo curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
-#     sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
-#     sudo rm tflint_linux_amd64.zip
-    # curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    # sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    # sudo mv sonobuoy /usr/local/bin/sonobuoy && \
-    # sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
-    # curl -L https://istio.io/downloadIstio  | ISTIO_VERSION='${ISTIO_VERSION}' sh - && \
-    # sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
-    # sudo rm -rf "istio-${ISTIO_VERSION}" && \
-# sudo wget "https://github.com/terraform-linters/tflint/releases/download/v0.20.2/tflint_linux_amd64.zip" > tflint_linux_amd64.zip
 USER circleci
 
 HEALTHCHECK NONE
