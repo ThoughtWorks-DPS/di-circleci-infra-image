@@ -20,7 +20,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
              go==1.13.14-r0 \
-             python3==3.8.5-r0 \
+             python3==3.8.5-r2 \
              ruby==2.7.1-r3 \
              ruby-webrick==2.7.1-r3 \
              ruby-bigdecimal==2.7.1-r3 \
