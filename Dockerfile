@@ -27,12 +27,12 @@ RUN sudo apk add --no-cache \
              ruby-bundler==2.1.4-r1 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
-             openssl-dev==1.1.1g-r0 \
-             python3-dev==3.8.5-r0 \
+             openssl-dev==1.1.1h-r0 \
+             python3-dev==3.8.5-r2 \
              ruby-dev==2.7.1-r3 \
              libffi-dev==3.3-r2 \
-             g++==9.3.0-r2 \
-             gcc==9.3.0-r2 \
+             g++==10.2.0-r5 \
+             gcc==10.2.0-r5 \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
