@@ -3,7 +3,7 @@
 @test "evaluate installed package versions" {
   run bash -c "docker exec di-circleci-infra-image-edge apk -v info"
   [[ "${output}" =~ "go-1.13.14-r0" ]]
-  [[ "${output}" =~ "python3-3.8.5-r0" ]]
+  [[ "${output}" =~ "python3-3.8.5-r2" ]]
   [[ "${output}" =~ "ruby-2.7.1-r3" ]]
   [[ "${output}" =~ "ruby-webrick-2.7.1-r3" ]]
   [[ "${output}" =~ "ruby-bigdecimal-2.7.1-r3" ]]
