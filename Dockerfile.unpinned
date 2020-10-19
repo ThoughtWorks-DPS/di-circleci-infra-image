@@ -2,13 +2,13 @@ FROM twdps/di-circleci-base-image:stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.13.3
-ENV TERRAFORM_SHA256SUM=35c662be9d32d38815cde5fa4c9fa61a3b7f39952ecd50ebf92fd1b2ddd6109b
-ENV TFLINT_VERSION=0.20.2
+ENV TERRAFORM_VERSION=0.13.4
+ENV TERRAFORM_SHA256SUM=a92df4a151d390144040de5d18351301e597d3fae3679a814ea57554f6aa9b24
+ENV TFLINT_VERSION=0.20.3
 ENV KUBECTL_VERSION=1.19.2
 ENV HELM_VERSION=3.3.4
 ENV SONOBUOY_VERSION=0.19.0
-ENV ISTIO_VERSION=1.7.2
+ENV ISTIO_VERSION=1.7.3
 ENV CONSUL_VERSION=1.8.4
 ENV CONSUL_SHA256SUM=0d74525ee101254f1cca436356e8aee51247d460b56fc2b4f7faef8a6853141f
 ENV VAULT_VERSION=1.5.4
@@ -42,7 +42,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==50.3.0 \
+             setuptools==50.3.1 \
              awscli \
              invoke \
              hvac \
@@ -54,40 +54,40 @@ RUN sudo apk add --no-cache \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
     sudo gem install \
              awspec \
-             json
-RUN curl "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+             json && \
+    curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/bin && \
     sudo rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
-    curl "https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_SHA256SUMS" && \
     sha256sum -cs "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
     sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/bin && \
-    sudo rm "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
-    # curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" && \
-    # sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
-    # sudo rm tflint_linux_amd64.zip && \
-    # curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
-    # sudo chmod +x ./kubectl  && \
-    # sudo mv ./kubectl /usr/local/bin/kubectl && \
-    # curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    # sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    # sudo mv sonobuoy /usr/local/bin/sonobuoy && \
-    # sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
-    # curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    # sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    # sudo mv linux-amd64/helm /usr/bin && \
-    # sudo rm -rf linux-amd64/ && \
-    # sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    # curl -L https://git.io/getLatestIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
-    # sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
-    # sudo rm -rf "istio-${ISTIO_VERSION}" && \
-    # curl -SLO "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_linux_amd64.zip" && \
-    # echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_SHA256SUMS" && \
-    # sudo sha256sum -cs "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
-    # sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
-    # sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    sudo rm -f "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+    sudo chmod +x ./kubectl  && \
+    sudo mv ./kubectl /usr/local/bin/kubectl && \
+    curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    sudo mv linux-amd64/helm /usr/bin && \
+    sudo rm -rf linux-amd64/ && \
+    sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    curl -SLO "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_SHA256SUMS" && \
+    sudo sha256sum -cs "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
+    sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
+    sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
+    sudo rm tflint_linux_amd64.zip  && \
+    curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo mv sonobuoy /usr/local/bin/sonobuoy && \
+    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
+    curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
+    sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
+    sudo rm -rf "istio-${ISTIO_VERSION}" && \
     sudo apk del build-dependencies
 
 USER circleci

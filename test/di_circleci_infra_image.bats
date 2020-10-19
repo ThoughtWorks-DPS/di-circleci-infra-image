@@ -2,8 +2,8 @@
 
 @test "evaluate installed package versions" {
   run bash -c "docker exec di-circleci-infra-image-edge apk -v info"
-  [[ "${output}" =~ "go-1.13.14-r0" ]]
-  [[ "${output}" =~ "python3-3.8.5-r2" ]]
+  [[ "${output}" =~ "go-1.13.15-r0" ]]
+  [[ "${output}" =~ "python3-3.8.5-r0" ]]
   [[ "${output}" =~ "ruby-2.7.1-r3" ]]
   [[ "${output}" =~ "ruby-webrick-2.7.1-r3" ]]
   [[ "${output}" =~ "ruby-bigdecimal-2.7.1-r3" ]]
@@ -13,15 +13,15 @@
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
   [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.3\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"50.3.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.146\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"50.3.1\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.159\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.5\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.24.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.2\"}" ]]
   [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.27.4\"}" ]]
   [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.6.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.24.2\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.25.0\"}" ]]
 }
 
 @test "evaluate installed gems" {
@@ -57,7 +57,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.7.2" ]]
+  [[ "${output}" =~ "1.7.3" ]]
 }
 
 @test "vault version" {
