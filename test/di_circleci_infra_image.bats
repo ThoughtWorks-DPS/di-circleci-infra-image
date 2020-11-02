@@ -57,7 +57,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.7.3" ]]
+  [[ "${output}" =~ "1.7.4" ]]
 }
 
 @test "vault version" {
