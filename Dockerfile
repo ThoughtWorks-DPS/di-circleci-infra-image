@@ -36,7 +36,7 @@ RUN sudo apk add --no-cache \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==20.2.3 && \
+    sudo pip3 install --upgrade pip==20.2.4 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
