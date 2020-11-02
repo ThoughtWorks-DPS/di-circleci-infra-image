@@ -12,9 +12,9 @@
 
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
-  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.3\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"50.3.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.159\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.4\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"50.3.2\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.170\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.5\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.24.0\"}" ]]
@@ -32,7 +32,7 @@
 
 @test "terraform version" {
   run bash -c "docker exec di-circleci-infra-image-edge terraform version"
-  [[ "${output}" =~ "0.13.4" ]]
+  [[ "${output}" =~ "0.13.5" ]]
 }
 
 @test "tflint version" {
@@ -42,12 +42,12 @@
 
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.19.2" ]]
+  [[ "${output}" =~ "1.19.3" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec di-circleci-infra-image-edge helm version"
-  [[ "${output}" =~ "3.3.4" ]]
+  [[ "${output}" =~ "3.4.0" ]]
 }
 
 @test "sonobuoy version" {
@@ -62,5 +62,5 @@
 
 @test "vault version" {
   run bash -c "docker exec di-circleci-infra-image-edge vault version"
-  [[ "${output}" =~ "1.5.4" ]]
+  [[ "${output}" =~ "1.5.5" ]]
 }
