@@ -42,7 +42,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==50.3.1 \
+             setuptools==50.3.2 \
              awscli \
              invoke \
              hvac \
