@@ -43,7 +43,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
              setuptools==50.3.2 \
-             awscli==1.18.170 \
+             awscli==1.18.178 \
              invoke==1.4.1 \
              hvac==0.10.5 \
              requests==2.24.0 \

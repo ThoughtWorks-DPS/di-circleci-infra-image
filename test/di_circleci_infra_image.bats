@@ -14,7 +14,7 @@
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
   [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"20.2.4\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"50.3.2\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.170\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.18.178\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.4.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.5\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.24.0\"}" ]]
