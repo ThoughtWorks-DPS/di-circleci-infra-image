@@ -43,17 +43,17 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
              setuptools==50.3.2 \
-             awscli==1.18.178 \
+             awscli==1.18.190 \
              invoke==1.4.1 \
              hvac==0.10.5 \
-             requests==2.24.0 \
+             requests==2.25.0 \
              jinja2==2.11.2 \
              docker-compose==1.27.4 \
              pylint==2.6.0 \
              yamllint==1.25.0 && \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
     sudo gem install \
-             awspec:1.22.0 \
+             awspec:1.22.1 \
              json:2.3.1 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
