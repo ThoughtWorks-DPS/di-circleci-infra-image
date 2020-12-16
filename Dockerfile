@@ -2,17 +2,17 @@ FROM twdps/di-circleci-base-image:stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.14.0
-ENV TERRAFORM_SHA256SUM=07fd7173f7a360ad5e4d5ea5035670cf426cf7a08d0486bc0fe7c9d76b447722
-ENV TFLINT_VERSION=0.21.0
-ENV KUBECTL_VERSION=1.19.4
-ENV HELM_VERSION=3.4.1
-ENV SONOBUOY_VERSION=0.19.0
-ENV ISTIO_VERSION=1.8.0
-ENV CONSUL_VERSION=1.9.0
-ENV CONSUL_SHA256SUM=409b964f9cec93ba4aa3f767fe3a57e14160d86ffab63c3697d188ba29d247ce
-ENV VAULT_VERSION=1.6.0
-ENV VAULT_SHA256SUM=83048e2d1ebfea212fead42e474e947c3a3bccc5056a5158ed33f530f8325e39
+ENV TERRAFORM_VERSION=0.14.2
+ENV TERRAFORM_SHA256SUM=6f380c0c7a846f9e0aedb98a2073d2cbd7d1e2dc0e070273f9325f1b69e668b2
+ENV TFLINT_VERSION=0.22.0
+ENV KUBECTL_VERSION=1.19.5
+ENV HELM_VERSION=3.4.2
+ENV SONOBUOY_VERSION=0.20.0
+ENV ISTIO_VERSION=1.8.1
+ENV CONSUL_VERSION=1.9.1
+ENV CONSUL_SHA256SUM=9ba45ec6eb3e762444f077ae06e407ca5161d46785d725d7b5ea0c4d5cd5a99b
+ENV VAULT_VERSION=1.6.1
+ENV VAULT_SHA256SUM=75cd2b8c5527577c0da1105e11fba3c31f4112514a910c4f7ec527c9a8bf42d1
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -36,17 +36,17 @@ RUN sudo apk add --no-cache \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==20.3.1 && \
+    sudo pip3 install --upgrade pip==20.3.3 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==50.3.2 \
-             awscli==1.18.190 \
+             setuptools==51.0.0 \
+             awscli==1.18.198 \
              invoke==1.4.1 \
              hvac==0.10.5 \
-             requests==2.25.0 \
+             requests==2.25.1 \
              jinja2==2.11.2 \
              docker-compose==1.27.4 \
              pylint==2.6.0 \
@@ -54,7 +54,7 @@ RUN sudo apk add --no-cache \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
     sudo gem install \
              awspec:1.22.1 \
-             json:2.3.1 && \
+             json:2.4.0 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
