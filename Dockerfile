@@ -27,7 +27,7 @@ RUN sudo apk add --no-cache \
              ruby-bundler==2.1.4-r1 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
-             openssl-dev==1.1.1g-r0 \
+             openssl-dev==1.1.1i-r0 \
              python3-dev==3.8.5-r0 \
              ruby-dev==2.7.1-r3 \
              libffi-dev==3.3-r2 \
