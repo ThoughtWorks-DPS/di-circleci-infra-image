@@ -2,17 +2,17 @@ FROM twdps/di-circleci-base-image:stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.13.5
-ENV TERRAFORM_SHA256SUM=f7b7a7b1bfbf5d78151cfe3d1d463140b5fd6a354e71a7de2b5644e652ca5147
-ENV TFLINT_VERSION=0.20.3
-ENV KUBECTL_VERSION=1.19.3
-ENV HELM_VERSION=3.4.0
-ENV SONOBUOY_VERSION=0.19.0
-ENV ISTIO_VERSION=1.7.4
-ENV CONSUL_VERSION=1.8.5
-ENV CONSUL_SHA256SUM=94ab38e6221d3da393d0bbdf19cc524051253a75db078c31e249dad2c497ad46
-ENV VAULT_VERSION=1.5.5
-ENV VAULT_SHA256SUM=2a6958e6c8d6566d8d529fe5ef9378534903305d0f00744d526232d1c860e1ed
+ENV TERRAFORM_VERSION=0.14.4
+ENV TERRAFORM_SHA256SUM=042f1f4fb47696b3442eca12bce7cce6de0b477b299503ddad6b8bc3777a54b5
+ENV TFLINT_VERSION=0.23.0
+ENV KUBECTL_VERSION=1.20.1
+ENV HELM_VERSION=3.4.2
+ENV SONOBUOY_VERSION=0.20.0
+ENV ISTIO_VERSION=1.8.1
+ENV CONSUL_VERSION=1.9.1
+ENV CONSUL_SHA256SUM=9ba45ec6eb3e762444f077ae06e407ca5161d46785d725d7b5ea0c4d5cd5a99b
+ENV VAULT_VERSION=1.6.1
+ENV VAULT_SHA256SUM=75cd2b8c5527577c0da1105e11fba3c31f4112514a910c4f7ec527c9a8bf42d1
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -42,7 +42,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==50.3.2 \
+             setuptools==51.1.1 \
              awscli \
              invoke \
              hvac \
