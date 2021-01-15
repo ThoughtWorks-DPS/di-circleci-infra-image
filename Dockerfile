@@ -4,11 +4,11 @@ LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
 ENV TERRAFORM_VERSION=0.14.4
 ENV TERRAFORM_SHA256SUM=042f1f4fb47696b3442eca12bce7cce6de0b477b299503ddad6b8bc3777a54b5
-ENV TFLINT_VERSION=0.23.0
-ENV KUBECTL_VERSION=1.20.1
-ENV HELM_VERSION=3.4.2
+ENV TFLINT_VERSION=0.23.1
+ENV KUBECTL_VERSION=1.20.2
+ENV HELM_VERSION=3.5.0
 ENV SONOBUOY_VERSION=0.20.0
-ENV ISTIO_VERSION=1.8.1
+ENV ISTIO_VERSION=1.8.2
 ENV CONSUL_VERSION=1.9.1
 ENV CONSUL_SHA256SUM=9ba45ec6eb3e762444f077ae06e407ca5161d46785d725d7b5ea0c4d5cd5a99b
 ENV VAULT_VERSION=1.6.1
@@ -19,20 +19,20 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
-             go==1.13.15-r0\
-             python3==3.8.5-r0 \
-             ruby==2.7.1-r3 \
-             ruby-webrick==2.7.1-r3 \
-             ruby-bigdecimal==2.7.1-r3 \
-             ruby-bundler==2.1.4-r1 && \
+             go==1.15.6-r0\
+             python3==3.8.7-r0 \
+             ruby==2.7.2-r3\
+             ruby-webrick==2.7.2-r3 \
+             ruby-bigdecimal==2.7.2-r3 \
+             ruby-bundler==2.2.2-r0 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
              openssl-dev==1.1.1i-r0 \
-             python3-dev==3.8.5-r0 \
-             ruby-dev==2.7.1-r3 \
+             python3-dev==3.8.7-r0 \
+             ruby-dev==2.7.2-r3 \
              libffi-dev==3.3-r2 \
-             g++==9.3.0-r2 \
-             gcc==9.3.0-r2 \
+             g++==10.2.1_pre1-r3 \
+             gcc==10.2.1_pre1-r3 \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
@@ -42,8 +42,8 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==51.1.1 \
-             awscli==1.18.210 \
+             setuptools==51.1.2 \
+             awscli==1.18.216 \
              invoke==1.5.0 \
              hvac==0.10.6 \
              requests==2.25.1 \
