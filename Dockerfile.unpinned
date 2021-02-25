@@ -2,17 +2,17 @@ FROM twdps/di-circleci-base-image:stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.14.4
-ENV TERRAFORM_SHA256SUM=042f1f4fb47696b3442eca12bce7cce6de0b477b299503ddad6b8bc3777a54b5
-ENV TFLINT_VERSION=0.23.0
-ENV KUBECTL_VERSION=1.20.1
-ENV HELM_VERSION=3.4.2
+ENV TERRAFORM_VERSION=0.14.7
+ENV TERRAFORM_SHA256SUM=6b66e1faf0ad4ece28c42a1877e95bbb1355396231d161d78b8ca8a99accc2d7
+ENV TFLINT_VERSION=0.24.1
+ENV KUBECTL_VERSION=1.20.3
+ENV HELM_VERSION=3.5.2
 ENV SONOBUOY_VERSION=0.20.0
-ENV ISTIO_VERSION=1.8.1
-ENV CONSUL_VERSION=1.9.1
-ENV CONSUL_SHA256SUM=9ba45ec6eb3e762444f077ae06e407ca5161d46785d725d7b5ea0c4d5cd5a99b
-ENV VAULT_VERSION=1.6.1
-ENV VAULT_SHA256SUM=75cd2b8c5527577c0da1105e11fba3c31f4112514a910c4f7ec527c9a8bf42d1
+ENV ISTIO_VERSION=1.8.3
+ENV CONSUL_VERSION=1.9.3
+ENV CONSUL_SHA256SUM=2ec9203bf370ae332f6584f4decc2f25097ec9ef63852cd4ef58fdd27a313577
+ENV VAULT_VERSION=1.6.3
+ENV VAULT_SHA256SUM=844adaf632391be41f945143de7dccfa9b39c52a72e8e22a5d6bad9c32404c46
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -42,7 +42,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==51.1.1 \
+             setuptools==53.1.0 \
              awscli \
              invoke \
              hvac \
@@ -54,6 +54,7 @@ RUN sudo apk add --no-cache \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
     sudo gem install \
              awspec \
+             inspec-bin \
              json && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
@@ -89,6 +90,8 @@ RUN sudo apk add --no-cache \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
     sudo apk del build-dependencies
+
+COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
 
