@@ -18,12 +18,10 @@
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.5.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.8\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.25.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.2\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.27.4\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.6.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.25.0\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.3\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.7.1\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.26.0\"}" ]]
 }
-
 
 @test "evaluate installed gems" {
   run bash -c "docker exec di-circleci-infra-image-edge gem list"
@@ -64,4 +62,9 @@
 @test "vault version" {
   run bash -c "docker exec di-circleci-infra-image-edge vault version"
   [[ "${output}" =~ "1.6.3" ]]
+}
+
+@test "docker-compose version" {
+  run bash -c "docker exec di-circleci-infra-image-edge docker-compose --version"
+  [[ "${output}" =~ "1.28.4" ]]
 }
