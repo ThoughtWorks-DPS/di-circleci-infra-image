@@ -13,7 +13,6 @@ ENV CONSUL_VERSION=1.9.3
 ENV CONSUL_SHA256SUM=2ec9203bf370ae332f6584f4decc2f25097ec9ef63852cd4ef58fdd27a313577
 ENV VAULT_VERSION=1.6.3
 ENV VAULT_SHA256SUM=844adaf632391be41f945143de7dccfa9b39c52a72e8e22a5d6bad9c32404c46
-ENV DOCKER_COMPOSE_VERSION=1.28.5
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -22,7 +21,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN sudo apk add --no-cache \
              go==1.15.7-r0\
              python3==3.8.7-r1 \
-             ruby==2.7.2-r3\
+             rust==1.47.0-r2 \
              ruby-webrick==2.7.2-r3 \
              ruby-bigdecimal==2.7.2-r3 \
              ruby-bundler==2.2.2-r0 && \
@@ -30,6 +29,8 @@ RUN sudo apk add --no-cache \
              build-base==0.5-r2 \
              openssl-dev==1.1.1j-r0 \
              python3-dev==3.8.7-r1 \
+             cargo==1.47.0-r2 \
+             ruby==2.7.2-r3 \
              ruby-dev==2.7.2-r3 \
              libffi-dev==3.3-r2 \
              g++==10.2.1_pre1-r3 \
@@ -47,6 +48,7 @@ RUN sudo apk add --no-cache \
              awscli==1.19.16 \
              invoke==1.5.0 \
              hvac==0.10.8 \
+             docker-compose==1.28.5 \
              requests==2.25.1 \
              jinja2==2.11.3 \
              pylint==2.7.1 \
@@ -89,9 +91,6 @@ RUN sudo apk add --no-cache \
     curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
-    sudo curl -SLO "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" && \
-    sudo chmod +x docker-compose-Linux-x86_64 && \
-    sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose && \
     sudo apk del build-dependencies
 
 COPY inspec /etc/chef/accepted_licenses/inspec
