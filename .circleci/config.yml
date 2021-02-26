@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: feedyard/executor-tools@2.2.0
+  executor-tools: feedyard/executor-tools@2.4.0
 
 on-push-master: &on-push-master
   branches:
@@ -28,6 +28,7 @@ workflows:
           tag: edge
           docker-cve-scan: true
           snyk-organization: twdps
+          skip-base-image: true
           cis-docker-image-scan: true
           bats-test: true
           container-name: di-circleci-infra-image-edge
@@ -61,6 +62,7 @@ workflows:
           tag: nightly
           dockerfile: Dockerfile.unpinned
           docker-cve-scan: true
+          skip-base-image: true
           snyk-organization: twdps
           cis-docker-image-scan: true
           bats-test: true

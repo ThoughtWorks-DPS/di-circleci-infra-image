@@ -13,6 +13,7 @@ ENV CONSUL_VERSION=1.9.3
 ENV CONSUL_SHA256SUM=2ec9203bf370ae332f6584f4decc2f25097ec9ef63852cd4ef58fdd27a313577
 ENV VAULT_VERSION=1.6.3
 ENV VAULT_SHA256SUM=844adaf632391be41f945143de7dccfa9b39c52a72e8e22a5d6bad9c32404c46
+ENV DOCKER_COMPOSE_VERSION=1.28.4
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -48,7 +49,6 @@ RUN sudo apk add --no-cache \
              hvac \
              requests \
              jinja2 \
-             docker-compose \
              pylint \
              yamllint && \
     sudo sh -c "echo "gem: --no-document" > /etc/gemrc" && \
@@ -59,19 +59,19 @@ RUN sudo apk add --no-cache \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
-    sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/bin && \
+    sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_SHA256SUMS" && \
     sha256sum -cs "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
-    sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/bin && \
+    sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm -f "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
     curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    sudo mv linux-amd64/helm /usr/bin && \
+    sudo mv linux-amd64/helm /usr/local/bin && \
     sudo rm -rf linux-amd64/ && \
     sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     curl -SLO "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_linux_amd64.zip" && \
@@ -80,15 +80,16 @@ RUN sudo apk add --no-cache \
     sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
-    sudo unzip tflint_linux_amd64.zip -d /usr/bin && \
+    sudo unzip tflint_linux_amd64.zip -d /usr/local/bin && \
     sudo rm tflint_linux_amd64.zip  && \
     curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
     sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
     sudo mv sonobuoy /usr/local/bin/sonobuoy && \
     sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
-    sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/istioctl && \
+    sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
+    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     sudo apk del build-dependencies
 
 COPY inspec /etc/chef/accepted_licenses/inspec
