@@ -66,5 +66,5 @@
 
 @test "docker-compose version" {
   run bash -c "docker exec di-circleci-infra-image-edge docker-compose --version"
-  [[ "${output}" =~ "1.28.4" ]]
+  [[ "${output}" =~ "1.28.5" ]]
 }

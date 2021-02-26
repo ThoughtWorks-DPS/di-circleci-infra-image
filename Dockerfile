@@ -13,7 +13,7 @@ ENV CONSUL_VERSION=1.9.3
 ENV CONSUL_SHA256SUM=2ec9203bf370ae332f6584f4decc2f25097ec9ef63852cd4ef58fdd27a313577
 ENV VAULT_VERSION=1.6.3
 ENV VAULT_SHA256SUM=844adaf632391be41f945143de7dccfa9b39c52a72e8e22a5d6bad9c32404c46
-ENV DOCKER_COMPOSE_VERSION=1.28.4
+ENV DOCKER_COMPOSE_VERSION=1.28.5
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -89,7 +89,7 @@ RUN sudo apk add --no-cache \
     curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
-    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose && \
     sudo apk del build-dependencies
 
 COPY inspec /etc/chef/accepted_licenses/inspec
@@ -97,3 +97,4 @@ COPY inspec /etc/chef/accepted_licenses/inspec
 USER circleci
 
 HEALTHCHECK NONE
+
