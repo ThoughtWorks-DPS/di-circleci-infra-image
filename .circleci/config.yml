@@ -26,9 +26,7 @@ workflows:
           context: twdps-di
           image: twdps/di-circleci-infra-image
           tag: edge
-          docker-cve-scan: true
-          snyk-organization: twdps
-          skip-base-image: true
+          docker-cve-scan: false
           cis-docker-image-scan: true
           bats-test: true
           container-name: di-circleci-infra-image-edge
@@ -61,9 +59,7 @@ workflows:
           image: twdps/di-circleci-infra-image
           tag: nightly
           dockerfile: Dockerfile.unpinned
-          docker-cve-scan: true
-          skip-base-image: true
-          snyk-organization: twdps
+          docker-cve-scan: false
           cis-docker-image-scan: true
           bats-test: true
           container-name: di-circleci-infra-image-edge

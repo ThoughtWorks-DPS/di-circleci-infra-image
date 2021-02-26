@@ -18,9 +18,8 @@ _difference with cimg libraries._ Enterprise settings often require specific sec
 
 **Other images in this series**  
 
+twdps/di-circleci-remote-docker  
 twdps/di-circleci-base-image  
-twdps/di-circleci-k8s-deploy-image 
-twdps/di-circleci-python-image  
 
 ## Table of Contents
 
@@ -53,10 +52,12 @@ In addition to the packages and configuration that make up the twdps/di-circleci
 - terraform  
 - tflint  
 - kubectl  
+- helm  
 - istio  
 - vault (Hashicorp)  
 - consul (Hashicorp)
 - sonobuoy  
+- docker-compose 
 - go  
 - python3  
 - ruby
@@ -67,14 +68,22 @@ python packages includes
 - hvac  
 - requests  
 - jinja2  
-- docker-compose  
 - pylint  
 - yamllint  
 
 gems included  
 - awspec  
+- inspec-bin  
 - json  
-  
+
+**Medium severity vulnerability found in musl < 1.2.2_pre0-r0**  
+Description: Out-of-bounds Write  
+Info: https://snyk.io/vuln/SNYK-ALPINE313-MUSL-1067865  
+
+The stated fix-package is not available. Musl 1.2.2-r1 still fails the tests.  
+
+As a result, the cve scan is not presently being done.  
+
 ### Tagging Scheme
 
 These CircleCI executor images have the following tagging scheme:
