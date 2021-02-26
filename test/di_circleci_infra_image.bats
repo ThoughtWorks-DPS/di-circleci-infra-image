@@ -3,7 +3,7 @@
 @test "evaluate installed package versions" {
   run bash -c "docker exec di-circleci-infra-image-edge apk -v info"
   [[ "${output}" =~ "go-1.15.7-r0" ]]
-  [[ "${output}" =~ "python3-3.8.7-10" ]]
+  [[ "${output}" =~ "python3-3.8.7-r1" ]]
   [[ "${output}" =~ "ruby-2.7.2-r3" ]]
   [[ "${output}" =~ "ruby-webrick-2.7.2-r3" ]]
   [[ "${output}" =~ "ruby-bigdecimal-2.7.2-r3" ]]
@@ -16,7 +16,7 @@
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"53.1.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.16\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.5.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.6\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.8\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.25.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.2\"}" ]]
   [[ "${output}" =~ "{\"name\": \"docker-compose\", \"version\": \"1.27.4\"}" ]]
