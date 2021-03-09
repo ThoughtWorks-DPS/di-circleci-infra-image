@@ -45,7 +45,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
              setuptools==53.1.0 \
-             awscli==1.19.16 \
+             awscli==1.19.22 \
              invoke==1.5.0 \
              hvac==0.10.8 \
              docker-compose==1.28.5 \
