@@ -22,7 +22,7 @@ RUN sudo apk add --no-cache \
              go==1.15.10-r0\
              python3==3.8.8-r0 \
              rust==1.47.0-r2 \
-             ruby==2.7.3-ro \
+             ruby==2.7.3-r0 \
              ruby-webrick==2.7.3-r0 \
              ruby-bigdecimal==2.7.3-r0 \
              ruby-bundler==2.2.2-r0 && \
