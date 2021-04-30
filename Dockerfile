@@ -2,13 +2,13 @@ FROM twdps/di-circleci-base-image:1.25.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.15.0
-ENV TERRAFORM_SHA256SUM=69c5db7bd6d4a5d3dd060678e5c3d9442e32610ed05879b4325e6aa4807d0529
+ENV TERRAFORM_VERSION=0.15.1
+ENV TERRAFORM_SHA256SUM=1ff798791abf518fb0b5d9958ec8327b7213f1c91fb5235923e91cc96c59ef2c
 ENV TFLINT_VERSION=0.26.0
 ENV KUBECTL_VERSION=1.20.6
 ENV HELM_VERSION=3.5.4
 ENV SONOBUOY_VERSION=0.20.0
-ENV ISTIO_VERSION=1.9.2
+ENV ISTIO_VERSION=1.9.4
 ENV CONSUL_VERSION=1.9.5
 ENV CONSUL_SHA256SUM=76e46d6711c92ffe573710345dc8c996605822eb6dbb371f895f011cda260035
 ENV VAULT_VERSION=1.7.0
@@ -46,7 +46,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
              setuptools==56.0.0 \
-             awscli==1.19.53 \
+             awscli==1.19.61 \
              invoke==1.5.0 \
              hvac==0.10.9 \
              docker-compose==1.29.1 \
@@ -57,7 +57,7 @@ RUN sudo apk add --no-cache \
     sudo sh -c "echo 'gem: --no-document' > /etc/gemrc" && \
     sudo gem install \
              awspec:1.23.0 \
-             inspec-bin:4.32.0 \
+             inspec-bin:4.36.4 \
              json:2.5.1 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \

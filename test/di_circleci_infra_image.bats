@@ -14,7 +14,7 @@
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
   [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"21.0.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"56.0.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.53\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.61\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.5.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.9\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.25.1\"}" ]]
@@ -31,7 +31,7 @@
 
 @test "terraform version" {
   run bash -c "docker exec di-circleci-infra-image-edge terraform version"
-  [[ "${output}" =~ "0.15.0" ]]
+  [[ "${output}" =~ "0.15.1" ]]
 }
 
 @test "tflint version" {
@@ -56,7 +56,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.9.2" ]]
+  [[ "${output}" =~ "1.9.4" ]]
 }
 
 @test "vault version" {
