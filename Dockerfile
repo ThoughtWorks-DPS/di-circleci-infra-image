@@ -1,14 +1,14 @@
-FROM twdps/di-circleci-base-image:1.25.0
+FROM twdps/di-circleci-base-image:1.27.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.15.1
-ENV TERRAFORM_SHA256SUM=1ff798791abf518fb0b5d9958ec8327b7213f1c91fb5235923e91cc96c59ef2c
-ENV TFLINT_VERSION=0.26.0
+ENV TERRAFORM_VERSION=0.15.3
+ENV TERRAFORM_SHA256SUM=5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4
+ENV TFLINT_VERSION=0.28.1
 ENV KUBECTL_VERSION=1.20.6
 ENV HELM_VERSION=3.5.4
-ENV SONOBUOY_VERSION=0.20.0
-ENV ISTIO_VERSION=1.9.4
+ENV SONOBUOY_VERSION=0.50.0
+ENV ISTIO_VERSION=1.9.5
 ENV CONSUL_VERSION=1.9.5
 ENV CONSUL_SHA256SUM=76e46d6711c92ffe573710345dc8c996605822eb6dbb371f895f011cda260035
 ENV VAULT_VERSION=1.7.0
@@ -19,8 +19,8 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
-             go==1.15.10-r0\
-             python3==3.8.8-r0 \
+             go==1.15.12-r0\
+             python3==3.8.10-r0 \
              rust==1.47.0-r2 \
              ruby==2.7.3-r0 \
              ruby-webrick==2.7.3-r0 \
@@ -39,25 +39,25 @@ RUN sudo apk add --no-cache \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==21.0.1 && \
+    sudo pip3 install --upgrade pip==21.1.1 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
-             setuptools==56.0.0 \
-             awscli==1.19.61 \
+             setuptools==56.2.0 \
+             awscli==1.19.72 \
              invoke==1.5.0 \
-             hvac==0.10.9 \
-             docker-compose==1.29.1 \
+             hvac==0.10.11 \
+             docker-compose==1.29.2 \
              requests==2.25.1 \
              jinja2==2.11.3 \
-             pylint==2.7.4 \
+             pylint==2.8.2 \
              yamllint==1.26.1 && \
     sudo sh -c "echo 'gem: --no-document' > /etc/gemrc" && \
     sudo gem install \
-             awspec:1.23.0 \
-             inspec-bin:4.36.4 \
+             awspec:1.24.1 \
+             inspec-bin:4.37.8 \
              json:2.5.1 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
@@ -100,3 +100,5 @@ USER circleci
 
 HEALTHCHECK NONE
 
+# new inspec install option
+# curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
