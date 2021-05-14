@@ -29,7 +29,7 @@ RUN sudo apk add --no-cache \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
              openssl-dev==1.1.1k-r0 \
-             python3-dev==3.8.8-r0 \
+             python3-dev==3.8.10-r0 \
              cargo==1.47.0-r2 \
              ruby==2.7.3-r0 \
              ruby-dev==2.7.3-r0 \
