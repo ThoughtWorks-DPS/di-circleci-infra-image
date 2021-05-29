@@ -60,6 +60,7 @@ In addition to the packages and configuration that make up the twdps/di-circleci
 - docker-compose 
 - go  
 - python3  
+- rust   
 - ruby
   
 python packages includes  

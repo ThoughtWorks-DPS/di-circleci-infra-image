@@ -13,13 +13,13 @@
 
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-edge pip list --format json"
-  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"21.1.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"56.2.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.72\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"21.1.2\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"57.0.0\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.84\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.5.0\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.11\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"hvac\", \"version\": \"0.10.14\"}" ]]
   [[ "${output}" =~ "{\"name\": \"requests\", \"version\": \"2.25.1\"}" ]]
-  [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"2.11.3\"}" ]]
+  [[ "${output}" =~ "{\"name\": \"Jinja2\", \"version\": \"3.0.1\"}" ]]
   [[ "${output}" =~ "{\"name\": \"pylint\", \"version\": \"2.8.2\"}" ]]
   [[ "${output}" =~ "{\"name\": \"yamllint\", \"version\": \"1.26.1\"}" ]]
 }
@@ -33,7 +33,7 @@
 
 @test "terraform version" {
   run bash -c "docker exec di-circleci-infra-image-edge terraform version"
-  [[ "${output}" =~ "0.15.3" ]]
+  [[ "${output}" =~ "0.15.4" ]]
 }
 
 @test "tflint version" {
@@ -43,12 +43,12 @@
 
 @test "kubectl version" {
   run bash -c "docker exec di-circleci-infra-image-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.20.6" ]]
+  [[ "${output}" =~ "1.21.1" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec di-circleci-infra-image-edge helm version"
-  [[ "${output}" =~ "3.5.4" ]]
+  [[ "${output}" =~ "3.6.0" ]]
 }
 
 @test "sonobuoy version" {
@@ -58,12 +58,12 @@
 
 @test "istioctl version" {
   run bash -c "docker exec di-circleci-infra-image-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.9.5" ]]
+  [[ "${output}" =~ "1.10.0" ]]
 }
 
 @test "vault version" {
   run bash -c "docker exec di-circleci-infra-image-edge vault version"
-  [[ "${output}" =~ "1.7.0" ]]
+  [[ "${output}" =~ "1.7.2" ]]
 }
 
 @test "docker-compose version" {

@@ -1,3 +1,43 @@
+## 05-29-2021 packge version included in di-circleci-infra-image:1.23.0
+
+Major upgrade for jinja2
+
+^changes
+
+FROM twdps/di-circleci-base-image:1.28.0^
+
+| package          | version     |
+|------------------|-------------|
+| go               | 1.15.12-r0  |
+| python3          | 3.8.10-r0   |
+| rust             | 1.47.0-r2   |
+| ruby             | 2.7.3-r0    |
+| ruby-webrick     | 2.7.3-r0    |
+| ruby-bigdecimal  | 2.7.3-r0    |
+| ruby-bundler     | 2.2.2-r0    |
+| pip              | 21.1.2^     |
+| setuptools       | 57.0.0^     |
+| awscli           | 1.19.84^    |
+| invoke           | 1.5.0       |
+| hvac             | 0.10.14^    |
+| docker-compose   | 1.29.2      |
+| requests         | 2.25.1      |
+| jinja2           | 3.0.1^      |
+| pylint           | 2.8.2       |
+| yamllint         | 1.26.1      |
+| awspec           | 1.24.1      |
+| inspec-bin       | 4.37.20^    |
+| json             | 2.5.1       |
+| teraform         | 0.15.4^     |
+| tflint           | 0.28.1      |
+| kubectl          | 1.21.1^     |
+| helm             | 3.6.0       |
+| sonobuoy         | 0.50.0^     |
+| istio            | 1.10.0^     |
+| consul           | 1.9.5       |
+| vault            | 1.7.2^      |
+
+
 ## 05-11-2021 packge version included in di-circleci-infra-image:1.22.0
 
 ^changes
