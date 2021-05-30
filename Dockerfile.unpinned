@@ -21,6 +21,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN sudo apk add --no-cache \
              go \
              python3 \
+             rust \
              ruby \
              ruby-webrick \
              ruby-bigdecimal \
