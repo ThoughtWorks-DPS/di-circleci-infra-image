@@ -1,63 +1,63 @@
-FROM twdps/di-circleci-base-image:1.28.0
+FROM twdps/di-circleci-base-image:1.29.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=0.15.4
-ENV TERRAFORM_SHA256SUM=ddf9b409599b8c3b44d4e7c080da9a106befc1ff9e53b57364622720114e325c
-ENV TFLINT_VERSION=0.28.1
+ENV TERRAFORM_VERSION=1.0.1
+ENV TERRAFORM_SHA256SUM=da94657593636c8d35a96e4041136435ff58bb0061245b7d0f82db4a7728cef3
+ENV TFLINT_VERSION=0.29.1
 ENV KUBECTL_VERSION=1.21.1
-ENV HELM_VERSION=3.6.0
-ENV SONOBUOY_VERSION=0.50.0
-ENV ISTIO_VERSION=1.10.0
-ENV CONSUL_VERSION=1.9.5
-ENV CONSUL_SHA256SUM=76e46d6711c92ffe573710345dc8c996605822eb6dbb371f895f011cda260035
-ENV VAULT_VERSION=1.7.2
-ENV VAULT_SHA256SUM=5ee6bb8119b55c27cd3864c982177714a0a4a3813927ccafdb262e78e4bb67bc
+ENV HELM_VERSION=3.6.1
+ENV SONOBUOY_VERSION=0.52.0
+ENV ISTIO_VERSION=1.10.2
+ENV CONSUL_VERSION=1.10.0
+ENV CONSUL_SHA256SUM=7cd2e67ce2779c74ce18d880ccdfdc00a655eb71a6a7a956e6d3b71e7937ca0f
+ENV VAULT_VERSION=1.7.3
+ENV VAULT_SHA256SUM=8453132a93b755c0a89dd4b2f1a99bd4af06f8167b81917f117080839031e03f
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
-             go==1.15.12-r0\
-             python3==3.8.10-r0 \
-             rust==1.47.0-r2 \
-             ruby==2.7.3-r0 \
-             ruby-webrick==2.7.3-r0 \
-             ruby-bigdecimal==2.7.3-r0 \
-             ruby-bundler==2.2.2-r0 && \
+             go==1.16.5-r0\
+             python3==3.9.5-r1 \
+             rust==1.52.0-r0 \
+             ruby==2.7.3-r1 \
+             ruby-webrick==2.7.3-r1 \
+             ruby-bigdecimal==2.7.3-r1 \
+             ruby-bundler==2.2.20-r0 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r2 \
              openssl-dev==1.1.1k-r0 \
-             python3-dev==3.8.10-r0 \
-             cargo==1.47.0-r2 \
-             ruby==2.7.3-r0 \
-             ruby-dev==2.7.3-r0 \
+             python3-dev==3.9.5-r1 \
+             cargo==1.52.0-r0 \
+             ruby==2.7.3-r1 \
+             ruby-dev==2.7.3-r1 \
              libffi-dev==3.3-r2 \
-             g++==10.2.1_pre1-r3 \
-             gcc==10.2.1_pre1-r3 \
+             g++==10.3.1_git20210424-r2 \
+             gcc==10.3.1_git20210424-r2 \
              make==4.3-r0 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==21.1.2 && \
+    sudo pip3 install --upgrade pip==21.1.3 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
              setuptools==57.0.0 \
-             awscli==1.19.84 \
+             awscli==1.19.100 \
              invoke==1.5.0 \
              hvac==0.10.14 \
              docker-compose==1.29.2 \
              requests==2.25.1 \
              jinja2==3.0.1 \
-             pylint==2.8.2 \
+             pylint==2.8.3 \
              yamllint==1.26.1 && \
     sudo sh -c "echo 'gem: --no-document' > /etc/gemrc" && \
     sudo gem install \
              awspec:1.24.1 \
-             inspec-bin:4.37.20 \
+             inspec-bin:4.37.30 \
              json:2.5.1 && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \

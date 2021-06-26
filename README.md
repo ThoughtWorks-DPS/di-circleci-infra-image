@@ -77,13 +77,7 @@ gems included
 - inspec-bin  
 - json  
 
-**Medium severity vulnerability found in musl < 1.2.2_pre0-r0**  
-Description: Out-of-bounds Write  
-Info: https://snyk.io/vuln/SNYK-ALPINE313-MUSL-1067865  
-
-The stated fix-package is not available. Musl 1.2.2-r1 still fails the tests.  
-
-As a result, the cve scan is not presently being done.  
+_note. Snyk reports curl vulnerability that is fixed in 7.77.0, however using the new library still reports the error. Accepting cve pending update to databse_  
 
 ### Tagging Scheme
 
