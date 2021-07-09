@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-_() { echo 'cleanup'; docker rm -f di-circleci-infra-image-alpine-edge; docker rmi -f twdps/di-circleci-infra-image:alpine-edge; docker rm -f di-circleci-infra-image-slim-edge; docker rmi -f twdps/di-circleci-infra-image:slim-edge ; }
-trap _ EXIT
+# _() { echo 'cleanup'; docker rm -f di-circleci-infra-image-alpine-edge; docker rmi -f twdps/di-circleci-infra-image:alpine-edge; docker rm -f di-circleci-infra-image-slim-edge; docker rmi -f twdps/di-circleci-infra-image:slim-edge ; }
+# trap _ EXIT
 
 type=${1:-'pinned'}
 alpine_dockerfile='Dockerfile.alpine'
