@@ -22,7 +22,6 @@
 
 @test "evaluate installed pip packages and versions" {
   run bash -c "docker exec di-circleci-infra-image-slim-edge pip list --format json"
-  [[ "${output}" =~ "{\"name\": \"pip\", \"version\": \"21.1.3\"}" ]]
   [[ "${output}" =~ "{\"name\": \"setuptools\", \"version\": \"57.1.0\"}" ]]
   [[ "${output}" =~ "{\"name\": \"awscli\", \"version\": \"1.19.105\"}" ]]
   [[ "${output}" =~ "{\"name\": \"invoke\", \"version\": \"1.5.0\"}" ]]

@@ -14,7 +14,7 @@ FROM twdps/di-circleci-base-image:alpine-2.1.1^
 | ruby-bigdecimal  | 2.7.3-r1^   |
 | ruby-bundler     | 2.2.2-r1^   |
 | pip              | 21.1.3^     |
-| setuptools       | 57.1.0^     |
+| setuptools       | 56.0.0^     |
 | awscli           | 1.19.105^   |
 | invoke           | 1.5.0       |
 | hvac             | 0.10.14     |
