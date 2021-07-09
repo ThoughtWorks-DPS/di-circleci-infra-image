@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: feedyard/executor-tools@2.4.0
+  executor-tools: feedyard/executor-tools@2.8.0
 
 on-push-master: &on-push-master
   branches:
@@ -18,31 +18,63 @@ on-tag-master: &on-tag-master
 
 workflows:
   version: 2
-  di-circleci-infra-image-pipeline:
+  di-circleci-infra-image-alpine-pipeline:
+    jobs:
+      - executor-tools/machine-executor-dev-release:
+          name: alpine-dev-build
+          context: twdps-di
+          image: twdps/di-circleci-infra-image
+          tag: alpine-edge
+          docker-cve-scan: true
+          snyk-organization: twdps
+          skip-base-image: true
+          cis-docker-image-scan: true
+          bats-test: true
+          test-path: test/di_circleci_infra_image_alpine.bats
+          container-name: di-circleci-infra-image-alpine-edge
+          after-checkout:
+            - run:
+                name: inject environment variables
+                command: |
+                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  source $BASH_ENV
+          filters: *on-push-master
+
+      - executor-tools/publish:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          name: alpine-release
+          context: twdps-di
+          pull-tag: alpine-edge
+          tag-annotation: alpine-
+          image: twdps/di-circleci-infra-image
+          release-tag: alpine-stable
+          filters: *on-tag-master
+
+  di-circleci-infra-image-slim-pipeline:
     jobs:
       - executor-tools/dev-release:
           shell: secrethub run -- /bin/sh -eo pipefail
-          name: "dev-build"
+          name: slim-dev-build
           context: twdps-di
+          dockerfile: Dockerfile.slim
           image: twdps/di-circleci-infra-image
-          tag: edge
-          docker-cve-scan: false
-          cis-docker-image-scan: true
+          tag: slim-edge
           bats-test: true
-          container-name: di-circleci-infra-image-edge
+          test-path: test/di_circleci_base_image_slim.bats
+          container-name: di-circleci-base-image-slim-edge
           filters: *on-push-master
-          
+
       - executor-tools/publish:
           shell: secrethub run -- /bin/sh -eo pipefail
-          name: Release
+          name: slim-release
           context: twdps-di
-          pull-tag: edge
+          pull-tag: slim-edge
+          tag-annotation: slim-
           image: twdps/di-circleci-infra-image
-          release-tag: stable
-          filters: *on-tag-master        
+          release-tag: slim-stable
+          filters: *on-tag-master
 
-  # NOTE: currently circleci does not support scheduled builds that use restricted contexts
-  # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
+# builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
   di-circleci-infra-image-nightly-build:
     triggers:
       - schedule:
@@ -52,14 +84,22 @@ workflows:
               only:
                 - master
     jobs:
-      - executor-tools/dev-release:
-          shell: secrethub run -- /bin/sh -eo pipefail
-          name: "nightly-build"
+      - executor-tools/machine-executor-dev-release:
+          name: alpine-dev-build
           context: twdps-di
           image: twdps/di-circleci-infra-image
-          tag: nightly
-          dockerfile: Dockerfile.unpinned
-          docker-cve-scan: false
+          tag: alpine-edge
+          docker-cve-scan: true
+          snyk-organization: twdps
+          skip-base-image: true
           cis-docker-image-scan: true
           bats-test: true
-          container-name: di-circleci-infra-image-edge
+          test-path: test/di_circleci_infra_image_alpine.bats
+          container-name: di-circleci-infra-image-alpine-edge
+          after-checkout:
+            - run:
+                name: inject environment variables
+                command: |
+                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  source $BASH_ENV
+          filters: *on-push-master

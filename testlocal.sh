@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
-_() { echo 'cleanup'; docker rm -f di-circleci-infra-image-edge; docker rmi -f twdps/di-circleci-infra-image:edge ; }
+_() { echo 'cleanup'; docker rm -f di-circleci-infra-image-alpine-edge; docker rmi -f twdps/di-circleci-infra-image:alpine-edge; docker rm -f di-circleci-infra-image-slim-edge; docker rmi -f twdps/di-circleci-infra-image:slim-edge ; }
 trap _ EXIT
 
-# # use tag arg when provided
-# # in this example, the .unpinned dockerfile uses unpinned package definitions for
-# # early detection of upcoming breaking changes
-# tag=${1:-'local'}
-# dockerfile='Dockerfile'
-# if [[ $tag != "local" ]]; then
-#   dockerfile="$dockerfile.$tag"
-# fi
+type=${1:-'pinned'}
+alpine_dockerfile='Dockerfile.alpine'
+slim_dockerfile='Dockerfile.slim'
 
-# echo "build twdps/di-circleci-infra-image"
-# docker build -t twdps/di-circleci-infra-image:edge -f $dockerfile .
+# pass unpinned as a parameter to this script to test the unpinned
+# package definitions for early detection of upcoming breaking changes
+if [[ $type == "unpinned" ]]; then
+  alpine_dockerfile='Dockerfile.alpine.unpinned'
+  slim_dockerfile='Dockerfile.slim.unpinned'
+fi
 
-# echo "run cis docker benchmark test"
-# conftest pull https://raw.githubusercontent.com/ncheneweth/opa-dockerfile-benchmarks/master/policy/cis-docker-benchmark.rego
-# conftest test Dockerfile --data .opacisrc
-# rm -rf policy
+echo "build twdps/di-circleci-infra-image:alpine"
+docker build -t twdps/di-circleci-infra-image:alpine-edge -f $alpine_dockerfile .
+echo "build twdps/di-circleci-infra-image:slim"
+docker build -t twdps/di-circleci-infra-image:slim-edge -f $slim_dockerfile .
 
-docker run -it -d --name di-circleci-infra-image-edge --entrypoint "/bin/ash" twdps/di-circleci-infra-image:edge
+echo "run image configuration tests"
+docker run -it -d --name di-circleci-infra-image-alpine-edge --entrypoint "/bin/ash" twdps/di-circleci-infra-image:alpine-edge
+docker run -it -d --name di-circleci-infra-image-slim-edge --entrypoint "/bin/bash" twdps/di-circleci-infra-image:slim-edge
 bats test

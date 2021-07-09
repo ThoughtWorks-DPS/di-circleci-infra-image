@@ -1,9 +1,12 @@
-FROM twdps/di-circleci-base-image:1.29.0
+FROM twdps/di-circleci-base-image:slim-2.1.1
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV TERRAFORM_VERSION=1.0.1
-ENV TERRAFORM_SHA256SUM=da94657593636c8d35a96e4041136435ff58bb0061245b7d0f82db4a7728cef3
+ENV GO_VERSION=1.16.5
+ENV RUST_VERSION=1.53.0
+ENV DOCKER_COMPOSE_VERSION=1.29.2
+ENV TERRAFORM_VERSION=1.0.2
+ENV TERRAFORM_SHA256SUM=7329f887cc5a5bda4bedaec59c439a4af7ea0465f83e3c1b0f4d04951e1181f4
 ENV TFLINT_VERSION=0.29.1
 ENV KUBECTL_VERSION=1.21.1
 ENV HELM_VERSION=3.6.1
@@ -14,59 +17,66 @@ ENV CONSUL_SHA256SUM=7cd2e67ce2779c74ce18d880ccdfdc00a655eb71a6a7a956e6d3b71e793
 ENV VAULT_VERSION=1.7.3
 ENV VAULT_SHA256SUM=8453132a93b755c0a89dd4b2f1a99bd4af06f8167b81917f117080839031e03f
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+ENV DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
+ENV PATH=/home/circleci/.rbenv/bin:$PATH:/usr/local/go/bin:/home/circleci/.cargo/bin
+ENV GOPATH=~/.go
 
-# sudo since twdps circleci remote docker images set the USER=cirlceci
+# sudo since twdps circleci base images set the USER=cirlceci
 # hadolint ignore=DL3004
-RUN sudo apk add --no-cache \
-             go==1.16.5-r0\
-             python3==3.9.5-r1 \
-             rust==1.52.0-r0 \
-             ruby==2.7.3-r1 \
-             ruby-webrick==2.7.3-r1 \
-             ruby-bigdecimal==2.7.3-r1 \
-             ruby-bundler==2.2.20-r0 && \
-    sudo apk add --no-cache --virtual build-dependencies \
-             build-base==0.5-r2 \
-             openssl-dev==1.1.1k-r0 \
-             python3-dev==3.9.5-r1 \
-             cargo==1.52.0-r0 \
-             ruby==2.7.3-r1 \
-             ruby-dev==2.7.3-r1 \
-             libffi-dev==3.3-r2 \
-             g++==10.3.1_git20210424-r2 \
-             gcc==10.3.1_git20210424-r2 \
-             make==4.3-r0 && \
-    sudo python3 -m ensurepip && \
-    sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==21.1.3 && \
-    if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
-    sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
-    sudo ln -s /usr/bin/python3 /usr/bin/python && \
-    sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
-    sudo pip install \
-             setuptools==57.0.0 \
-             awscli==1.19.100 \
-             invoke==1.5.0 \
-             hvac==0.10.14 \
-             docker-compose==1.29.2 \
-             requests==2.25.1 \
-             jinja2==3.0.1 \
-             pylint==2.8.3 \
-             yamllint==1.26.1 && \
-    sudo sh -c "echo 'gem: --no-document' > /etc/gemrc" && \
-    sudo gem install \
-             awspec:1.24.1 \
-             inspec-bin:4.37.30 \
-             json:2.5.1 && \
+RUN sudo wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
+    sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    rustup toolchain install ${RUST_VERSION} && \
+    rustup override set ${RUST_VERSION} && \
+    sudo apt-get update && sudo apt-get install --no-install-recommends -y \
+                 gcc \
+                 g++ \
+                 make \
+                 libreadline-dev \
+                 libssl-dev \
+                 zlib1g-dev \
+                 autoconf \
+                 bison \
+                 libyaml-dev \
+                 libncurses5-dev \
+                 libffi-dev \
+                 libgdbm-dev \
+                 ruby-full \
+                 bzip2 \
+                 unzip \
+                 python3-dev \
+                 python3-pip \
+                 python3-venv && \
+    sudo apt-get install --no-install-recommends -y rubygems && \
+    sudo ln -f -s /usr/bin/pip3 /usr/bin/pip && \
+    sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
+    sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
+    sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
+    pip install setuptools==57.1.0 && \
+    pip install \
+        wheel \
+        awscli \
+        invoke \
+        hvac \
+        requests \
+        jinja2 \
+        pylint \
+        yamllint && \
+    sudo gem install --no-document \
+             awspec \
+             inspec-bin \
+             json && \
+    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    sudo chmod +x /usr/local/bin/docker-compose && \
     curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
-    sha256sum -cs "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
+    sha256sum -c "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
     sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_SHA256SUMS" && \
-    sha256sum -cs "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
+    sha256sum -c "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
     sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm -f "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
@@ -79,7 +89,7 @@ RUN sudo apk add --no-cache \
     sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     curl -SLO "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_linux_amd64.zip" && \
     echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_SHA256SUMS" && \
-    sudo sha256sum -cs "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
+    sudo sha256sum -c "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
     sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
     curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
@@ -92,13 +102,9 @@ RUN sudo apk add --no-cache \
     curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
     sudo rm -rf "istio-${ISTIO_VERSION}" && \
-    sudo apk del build-dependencies
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/*
 
 COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
-
-HEALTHCHECK NONE
-
-# new inspec install option
-# curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec

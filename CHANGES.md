@@ -1,10 +1,8 @@
-## 06-26-2021 packge version included in di-circleci-infra-image:2.1.0
+## 07-08-2021 slim release, major packge version upgrade in di-circleci-infra-image 3.0.0
 
-Official 1.0 release for terraform, though not a breaking change from 0.15
+^changes  
 
-^changes
-
-FROM twdps/di-circleci-base-image:1.28.0^
+FROM twdps/di-circleci-base-image:alpine-2.1.1^  
 
 | package          | version     |
 |------------------|-------------|
@@ -16,8 +14,8 @@ FROM twdps/di-circleci-base-image:1.28.0^
 | ruby-bigdecimal  | 2.7.3-r1^   |
 | ruby-bundler     | 2.2.2-r1^   |
 | pip              | 21.1.3^     |
-| setuptools       | 57.0.0      |
-| awscli           | 1.19.100^   |
+| setuptools       | 57.1.0^     |
+| awscli           | 1.19.105^   |
 | invoke           | 1.5.0       |
 | hvac             | 0.10.14     |
 | docker-compose   | 1.29.2      |
@@ -25,10 +23,40 @@ FROM twdps/di-circleci-base-image:1.28.0^
 | jinja2           | 3.0.1       |
 | pylint           | 2.8.3^      |
 | yamllint         | 1.26.1      |
-| awspec           | 1.24.1      |
-| inspec-bin       | 4.37.30^    |
+| awspec           | 1.24.2      |
+| inspec-bin       | 4.38.3^     |
 | json             | 2.5.1       |
-| teraform         | 1.0.1^      |
+| terraform        | 1.0.2^      |
+| tflint           | 0.29.1^     |
+| kubectl          | 1.21.1      |
+| helm             | 3.6.1^      |
+| sonobuoy         | 0.52.0^     |
+| istio            | 1.10.2^     |
+| consul           | 1.10.0^     |
+| vault            | 1.7.3^      |
+
+FROM twdps/di-circleci-base-image:slim-2.1.1^  
+
+| package          | version     |
+|------------------|-------------|
+| go               | 1.16.5-r0^  |
+| python3          | 3.9.2-r1^   |
+| rust             | 1.53.0-r0^  |
+| ruby-full        | 1:2.7+2^    |
+| pip              | 20.3.4-2^   |
+| setuptools       | 57.1.0      |
+| awscli           | 1.19.105^   |
+| invoke           | 1.5.0       |
+| hvac             | 0.10.14     |
+| docker-compose   | 1.29.2      |
+| requests         | 2.25.1      |
+| jinja2           | 3.0.1       |
+| pylint           | 2.8.3^      |
+| yamllint         | 1.26.1      |
+| awspec           | 1.24.2      |
+| inspec-bin       | 4.38.3^     |
+| json             | 2.5.1       |
+| terraform        | 1.0.2^      |
 | tflint           | 0.29.1^     |
 | kubectl          | 1.21.1      |
 | helm             | 3.6.1^      |

@@ -1,0 +1,110 @@
+FROM twdps/di-circleci-base-image:slim-2.1.1
+
+LABEL maintainers=<nic.cheneweth@thoughtworks.com>
+
+ENV GO_VERSION=1.16.5
+ENV RUST_VERSION=1.53.0
+ENV DOCKER_COMPOSE_VERSION=1.29.2
+ENV TERRAFORM_VERSION=1.0.2
+ENV TERRAFORM_SHA256SUM=7329f887cc5a5bda4bedaec59c439a4af7ea0465f83e3c1b0f4d04951e1181f4
+ENV TFLINT_VERSION=0.29.1
+ENV KUBECTL_VERSION=1.21.1
+ENV HELM_VERSION=3.6.1
+ENV SONOBUOY_VERSION=0.52.0
+ENV ISTIO_VERSION=1.10.2
+ENV CONSUL_VERSION=1.10.0
+ENV CONSUL_SHA256SUM=7cd2e67ce2779c74ce18d880ccdfdc00a655eb71a6a7a956e6d3b71e7937ca0f
+ENV VAULT_VERSION=1.7.3
+ENV VAULT_SHA256SUM=8453132a93b755c0a89dd4b2f1a99bd4af06f8167b81917f117080839031e03f
+
+ENV DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
+ENV PATH=/home/circleci/.rbenv/bin:$PATH:/usr/local/go/bin:/home/circleci/.cargo/bin
+ENV GOPATH=/home/circleci/.go
+
+# sudo since twdps circleci base images set the USER=cirlceci
+# hadolint ignore=DL3004
+RUN sudo wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
+    sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    rustup toolchain install ${RUST_VERSION} && \
+    rustup override set ${RUST_VERSION} && \
+    sudo apt-get update && sudo apt-get install --no-install-recommends -y \
+                 gcc=4:10.2.1-1 \
+                 g++=4:10.2.1-1 \
+                 make=4.3-4.1 \
+                 libreadline-dev=8.1-1 \
+                 libssl-dev=1.1.1k-1 \
+                 zlib1g-dev=1:1.2.11.dfsg-2 \
+                 autoconf=2.69-14 \
+                 bison=2:3.7.5+dfsg-1 \
+                 libyaml-dev=0.2.2-1 \
+                 libncurses5-dev=6.2+20201114-2 \
+                 libffi-dev=3.3-6 \
+                 libgdbm-dev=1.19-2 \
+                 ruby-full=1:2.7+2 \
+                 bzip2=1.0.8-4 \
+                 unzip=6.0-26 \
+                 python3-dev=3.9.2-3 \
+                 python3-pip=20.3.4-2 \
+                 python3-venv=3.9.2-3 && \
+    sudo apt-get install --no-install-recommends -y rubygems && \
+    sudo ln -f -s /usr/bin/pip3 /usr/bin/pip && \
+    sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
+    sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
+    sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
+    pip install setuptools==57.1.0 && \
+    pip install \
+        wheel==0.36.2 \
+        awscli==1.19.105 \
+        invoke==1.5.0 \
+        hvac==0.10.14 \
+        requests==2.25.1 \
+        jinja2==3.0.1 \
+        pylint==2.8.3 \
+        yamllint==1.26.1 && \
+    sudo gem install --no-document \
+             awspec:1.24.2 \
+             inspec-bin:4.38.3 \
+             json:2.5.1 && \
+    sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    sudo chmod +x /usr/local/bin/docker-compose && \
+    curl -SLO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
+    sha256sum -c "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && sudo rm "terraform_${TERRAFORM_VERSION}_SHA256SUMS" && \
+    sudo unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    sudo rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
+    echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > "consul_${CONSUL_VERSION}_SHA256SUMS" && \
+    sha256sum -c "consul_${CONSUL_VERSION}_SHA256SUMS" && sudo rm "consul_${CONSUL_VERSION}_SHA256SUMS" && \
+    sudo unzip "consul_${CONSUL_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    sudo rm -f "consul_${CONSUL_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+    sudo chmod +x ./kubectl  && \
+    sudo mv ./kubectl /usr/local/bin/kubectl && \
+    curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    sudo mv linux-amd64/helm /usr/local/bin && \
+    sudo rm -rf linux-amd64/ && \
+    sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    curl -SLO "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > "vault_${VAULT_VERSION}_SHA256SUMS" && \
+    sudo sha256sum -c "vault_${VAULT_VERSION}_SHA256SUMS" && sudo rm "vault_${VAULT_VERSION}_SHA256SUMS" && \
+    sudo unzip "vault_${VAULT_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    sudo rm "vault_${VAULT_VERSION}_linux_amd64.zip" && \
+    curl -SLO "https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip" > tflint_linux_amd64.zip && \
+    sudo unzip tflint_linux_amd64.zip -d /usr/local/bin && \
+    sudo rm tflint_linux_amd64.zip  && \
+    curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
+    sudo mv sonobuoy /usr/local/bin/sonobuoy && \
+    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
+    curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
+    sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
+    sudo rm -rf "istio-${ISTIO_VERSION}" && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/*
+
+COPY inspec /etc/chef/accepted_licenses/inspec
+
+USER circleci
