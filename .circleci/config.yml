@@ -23,6 +23,7 @@ workflows:
       - executor-tools/machine-executor-dev-release:
           name: alpine-dev-build
           context: twdps-di
+          dockerfile: Dockerfile.alpine
           image: twdps/di-circleci-infra-image
           tag: alpine-edge
           docker-cve-scan: true

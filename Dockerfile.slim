@@ -53,8 +53,8 @@ RUN sudo wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
     sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
-    pip install setuptools==57.1.0 && \
-    pip install \
+    pip install --no-cache-dir setuptools==57.1.0 && \
+    pip install --no-cache-dir \
         wheel==0.36.2 \
         awscli==1.19.105 \
         invoke==1.5.0 \
