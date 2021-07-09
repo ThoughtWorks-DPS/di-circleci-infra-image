@@ -61,8 +61,8 @@ workflows:
           image: twdps/di-circleci-infra-image
           tag: slim-edge
           bats-test: true
-          test-path: test/di_circleci_base_image_slim.bats
-          container-name: di-circleci-base-image-slim-edge
+          test-path: test/di_circleci_infra_image_slim.bats
+          container-name: di-circleci-infra-image-slim-edge
           filters: *on-push-master
 
       - executor-tools/publish:
