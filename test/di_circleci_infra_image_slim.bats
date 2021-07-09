@@ -35,7 +35,7 @@
 
 @test "pip version" {
   run bash -c "docker exec di-circleci-infra-image-slim-edge pip -V"
-  [[ "${output}" =~ "20.3.4" ]]
+  [[ "${output}" =~ "21.1.3" ]]
 }
 
 @test "awscli version" {
