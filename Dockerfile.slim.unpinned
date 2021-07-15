@@ -1,4 +1,4 @@
-FROM twdps/di-circleci-base-image:slim-2.1.1
+FROM twdps/di-circleci-base-image:slim-stable
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
@@ -20,10 +20,10 @@ ENV VAULT_SHA256SUM=8453132a93b755c0a89dd4b2f1a99bd4af06f8167b81917f117080839031
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 ENV PATH=/home/circleci/.rbenv/bin:$PATH:/usr/local/go/bin:/home/circleci/.cargo/bin
-ENV GOPATH=~/.go
+ENV GOPATH=/home/circleci/.go
 
 # sudo since twdps circleci base images set the USER=cirlceci
-# hadolint ignore=DL3004
+# hadolint ignore=DL3008,DL3004
 RUN sudo wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
     sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \

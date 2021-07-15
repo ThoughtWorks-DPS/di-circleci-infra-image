@@ -1,20 +1,19 @@
 
 <div align="center">
 	<p>
-		<img alt="CircleCI Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/di-circleci-remote-docker/master/img/circle-circleci.svg?sanitize=true" width="75" />
-		<img alt="Docker Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/di-circleci-remote-docker/master/img/circle-docker.svg?sanitize=true" width="75" />
-		<img alt="Ubuntu Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/di-circleci-remote-docker/master/img/alpine.png?sanitize=true" width="75" />
+		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/thoughtworks_flamingo_wave.png?sanitize=true" width=200 />
+    <br />
+		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/dps_lab_title.png?sanitize=true" width=350/>
 	</p>
   <h3>ThoughtWorks DPS Convenience Images</h3>
   <h1>twdps/di-circleci-infra-image</h1>
-  <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/di-circleci-infra-image"><img src="https://circleci.com/gh/ThoughtWorks-DPS/di-circleci-infra-image.svg?style=shield"></a> <a href="https://hub.docker.com/repository/docker/twdps/di-circleci-infra-image"><img src="https://img.shields.io/docker/v/twdps/di-circleci-infra-image?sort=semver"></a> <a href="https://hub.docker.com/repository/docker/twdps/di-circleci-infra-image"><img src="https://img.shields.io/docker/image-size/twdps/di-circleci-infra-image?sort=semver"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/di-circleci-infra-image"></a>
-  <h5>A Continous Integration focused Alpine Docker image built to run on CircleCI</h5>
+  <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/di-circleci-infra-image"><img src="https://circleci.com/gh/ThoughtWorks-DPS/di-circleci-infra-image.svg?style=shield"></a> <a href="https://hub.docker.com/repository/docker/twdps/di-circleci-infra-image"><img src="https://img.shields.io/docker/v/twdps/di-circleci-infra-image?sort=semver"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/di-circleci-infra-image"></a>
 </div>
 <br />
 
-With some inspiration from the CircleCI convenience images, `twdps/di-circleci-infra-image` is on of a series of CircleCI remote docker executor images built FROM `twdps/di-circleci-base-image` for continuous delivery within a software defined delivery platform. This image is designed to serve as a infrastructure pipeline image and provides the core packages and configuration needed to provide a self-serve, low friction experience for cross functional, independent development teams with a high governance and security profile (with obvious focus at the moment on AWS).  
+With inspiration from the CircleCI convenience images, `twdps/di-circleci-infra-image` is one of a series of CircleCI remote docker executor images built FROM `twdps/di-circleci-base-image` that has both alpine and buster-slim variants created with self-hosted runners in mind. This image is designed to serve as a infrastructure pipeline image and provides the core packages and configuration needed to provide a self-serve, low friction experience for cross functional, independent development teams with a high governance and security profile (with obvious focus at the moment on AWS).  
 
-_difference with cimg libraries._ Enterprise settings often require specific security and configuratio testing. The twdps series of convenience images is based on Alpine linux and includes common sdlc practices including benchmark testing.  
+_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices, including CIS-benchmark testing. The Alpine image will generally not have any cve issues.  
 
 **Other images in this series**  
 
@@ -57,12 +56,12 @@ In addition to the packages and configuration that make up the twdps/di-circleci
 - vault (Hashicorp)  
 - consul (Hashicorp)
 - sonobuoy  
-- docker-compose 
+- docker-compose
 - go  
 - python3  
-- rust   
+- rust  
 - ruby
-  
+
 python packages includes  
 - awscli v1  
 - invoke  

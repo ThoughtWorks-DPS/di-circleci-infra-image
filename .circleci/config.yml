@@ -86,11 +86,12 @@ workflows:
                 - master
     jobs:
       - executor-tools/machine-executor-dev-release:
-          name: alpine-dev-build
+          name: alpine-nightly-build
           context: twdps-di
+          dockerfile: Dockerfile.alpine.unpinned
           image: twdps/di-circleci-infra-image
-          tag: alpine-edge
-          docker-cve-scan: true
+          tag: alpine-nightly
+          docker-cve-scan: false
           snyk-organization: twdps
           skip-base-image: true
           cis-docker-image-scan: true
@@ -103,4 +104,16 @@ workflows:
                 command: |
                   secrethub inject -i secrethub.env -o $BASH_ENV
                   source $BASH_ENV
+          filters: *on-push-master
+
+      - executor-tools/dev-release:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          name: slim-nightly-build
+          context: twdps-di
+          dockerfile: Dockerfile.slim.unpinned
+          image: twdps/di-circleci-infra-image
+          tag: slim-nightly
+          bats-test: true
+          test-path: test/di_circleci_infra_image_slim.bats
+          container-name: di-circleci-infra-image-slim-edge
           filters: *on-push-master

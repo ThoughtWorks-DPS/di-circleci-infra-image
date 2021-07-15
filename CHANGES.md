@@ -1,3 +1,7 @@
+## 07-014-2021 minor di-circleci-infra-image 3.0.1
+
+Only change is gpg folder ownership.  
+
 ## 07-08-2021 slim release, major packge version upgrade in di-circleci-infra-image 3.0.0
 
 ^changes  
