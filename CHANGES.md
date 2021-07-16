@@ -1,3 +1,11 @@
+## 07-014-2021 minor di-circleci-infra-image 3.0.2
+
+Updated to:  
+twdps/di-circleci-base-image:alpine-2.1.3  
+twdps/di-circleci-base-image:slim-2.1.3  
+
+Only change on the base image is method of folder creation.  
+
 ## 07-014-2021 minor di-circleci-infra-image 3.0.1
 
 Only change is gpg folder ownership.  
